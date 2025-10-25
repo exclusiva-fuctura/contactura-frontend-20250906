@@ -14,7 +14,7 @@ export class Logout {
     private router: Router
   ) {}
 
-  onSair() {
+  onSair(): void {
     this.router.navigate(['login']);
   }
 }

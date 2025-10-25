@@ -9,6 +9,7 @@ export class Lancamento {
   fixo: boolean;
   descricao?: string;
   ehReceita: boolean;
+  mensagem?: string;
 
   constructor(lancamento: IDespesa | IReceita) {
     this.id = lancamento.id;

@@ -6,9 +6,7 @@ import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-menu',
-  imports: [
-    MaterialModule
-  ],
+  imports: [MaterialModule],
   templateUrl: './menu.html',
   styleUrl: './menu.scss'
 })

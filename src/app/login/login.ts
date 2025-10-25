@@ -6,6 +6,7 @@ import { LoginService } from '../shared/services/login.service';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HttpStatusCode } from '@angular/common/http';
+import { AppState } from '../app.state';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +27,8 @@ export class Login {
   constructor(
     private formBuilder: FormBuilder,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private appState: AppState
   ) {
     this.initForm();
   }
@@ -43,7 +45,9 @@ export class Login {
     
     this.loginService.autenticador(login).subscribe({
       next: (response) => {
-        if (response.status === 201){
+        if (response.status === HttpStatusCode.Created){
+          const token = response.headers.get('Authorization') || '';
+          this.appState.token = token;
           this.router.navigate(['/dashboard']);
         }
       },
