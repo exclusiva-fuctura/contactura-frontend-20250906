@@ -27,6 +27,10 @@ export class LancamentosService {
     return this.daoService.delete<Lancamento>(`/api/lancamento/${id}`, DaoService.MEDIA_TYPE_APP_JSON);
   }
 
+  atualizaLancamento(lancamento: Lancamento): Observable<HttpResponse<Lancamento>> {
+    return this.daoService.put<Lancamento>(`/api/lancamento/${lancamento.id}`, lancamento, DaoService.MEDIA_TYPE_APP_JSON);
+  }
+
   static despesaParaLancamento(despesa: IDespesa): Lancamento {
     const lancamento = new Lancamento(despesa);
     lancamento.setDespesa();
