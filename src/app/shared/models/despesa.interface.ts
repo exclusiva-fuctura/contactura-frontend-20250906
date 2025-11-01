@@ -3,6 +3,6 @@ export interface IDespesa {
   data: string;
   valor: number;
   tipo: string;
-  fixo: boolean;
-  descricao?: string;
+  ehFixo: boolean;
+  descricao: string;
 }

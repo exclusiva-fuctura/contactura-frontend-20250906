@@ -6,8 +6,8 @@ export class Lancamento {
   data: string;
   valor: number;
   tipo: string;
-  fixo: boolean;
-  descricao?: string;
+  ehFixo: boolean;
+  descricao: string;
   ehReceita: boolean;
   mensagem?: string;
 
@@ -16,7 +16,7 @@ export class Lancamento {
     this.data = lancamento.data;
     this.valor = lancamento.valor;
     this.tipo = lancamento.tipo;
-    this.fixo = lancamento.fixo;
+    this.ehFixo = lancamento.ehFixo;
     this.descricao = lancamento.descricao;
     this.ehReceita = false; // valor padrão
   }

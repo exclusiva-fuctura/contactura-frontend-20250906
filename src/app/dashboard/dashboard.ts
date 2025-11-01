@@ -7,13 +7,16 @@ import { IDespesa } from '../shared/models/despesa.interface';
 import { IReceita } from '../shared/models/receita.interface';
 import { Logout } from '../shared/components/logout/logout';
 import { LancamentosService } from '../shared/services/lancamentos';
+import { CommonModule } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dashboard',
   imports: [
     Menu,
     Logout,
-    MaterialModule
+    MaterialModule,
+    CommonModule
   ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
@@ -43,5 +46,46 @@ export class Dashboard {
         console.error('Erro ao obter lançamentos:', error);
       }
     });
+  }
+
+  private removerLancamento(despesa: IDespesa): void {
+    const lancamento = LancamentosService.despesaParaLancamento(despesa);
+    this.lancamentosService.removerLancamento(lancamento.id!).subscribe({
+      next: () => {
+        this.obterLancamentos();
+        Swal.fire({
+          title: "Removido!",
+          text: "Despesa removida com sucesso.",
+          icon: "success"
+        });
+      },
+      error: (error) => {
+        Swal.fire({
+          title: "Ocorreru um erro!",
+          text: error.error?.mensagem || 'Não foi possível remover a despesa.',
+          icon: "warning"
+        });
+      }
+    });
+  }
+
+  onRemover(lancamento: IDespesa | IReceita): void {
+    Swal.fire({
+      title: "Remover Despesa",
+      text: `Deseja Remover a Despesa ${lancamento.descricao}?`,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sim",
+      cancelButtonText: "Não"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.removerLancamento(lancamento as IDespesa);
+      }
+    });
+
+
+    
   }
 }
